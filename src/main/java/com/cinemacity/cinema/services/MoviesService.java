@@ -2,8 +2,10 @@ package com.cinemacity.cinema.services;
 
 import com.cinemacity.cinema.dto.Movie;
 import com.cinemacity.cinema.entities.Movies;
+import com.cinemacity.cinema.exceptions.InvalidArgException;
 import com.cinemacity.cinema.repositories.MoviesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +36,11 @@ public class MoviesService {
         return moviesRepository.findAll();
     }
 
-    public Optional<Movies> getOneMovieById(int id){
+    public Optional<Movies> getOneMovieById(int id) throws Exception {
         Optional<Movies> movie = moviesRepository.findById(id);
+       if(movie.isEmpty()) {
+           throw new InvalidArgException();
+       }
         return movie;
     }
 

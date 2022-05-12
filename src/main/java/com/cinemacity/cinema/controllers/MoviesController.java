@@ -2,6 +2,7 @@ package com.cinemacity.cinema.controllers;
 
 import com.cinemacity.cinema.dto.Movie;
 import com.cinemacity.cinema.entities.Movies;
+import com.cinemacity.cinema.exceptions.InvalidArgException;
 import com.cinemacity.cinema.repositories.MoviesRepository;
 import com.cinemacity.cinema.services.MoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ public class MoviesController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Movies> getMovieById(@PathVariable int id){
-        Optional<Movies> movie = moviesService.getOneMovieById(id);
-        return movie;
+    public Optional<?> getMovieById(@PathVariable int id) throws Exception {
+        try{
+            return moviesService.getOneMovieById(id);
+        }
+        catch (Exception e){
+            return Optional.ofNullable(e.getMessage());
+        }
     }
 
     @PostMapping("/add")
