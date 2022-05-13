@@ -1,15 +1,7 @@
-package com.cinemacity.cinema.entities;
+package com.cinemacity.cinema.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
-public class Schedule {
-    @Id
+public class ScheduleDto {
     private int id;
-
-    @Column(name="cod_film")
     private int codFilm;
     private String day;
     private String hour;
